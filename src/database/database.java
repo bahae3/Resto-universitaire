@@ -1,0 +1,40 @@
+package database;
+
+import java.sql.*;
+
+public class database {
+    public static boolean userLogin(String login, String pwd) {
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/itapp";
+        String usernameDB = "root";
+        String passwordDB = "";
+
+        try {
+            // Establishing the connection
+            Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB);
+            // Fetching data from a table
+            String users = null; // example: "SELECT username, password FROM users";
+            PreparedStatement preparedStatement = connection.prepareStatement(users);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                // Process each row of the result set
+                String usernameSQL = resultSet.getString("username");
+                String passwordSQL = resultSet.getString("password");
+
+                // Retrieve other columns similarly
+                if (usernameSQL.equals(login) && passwordSQL.equals(pwd)) {
+                    return true;
+                }
+            }
+
+            // Close the connections
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
+    }
+
+}
