@@ -1,14 +1,23 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Login extends JFrame{
-    JPanel panel = new JPanel();
+public class Login extends JFrame {
+    // Hadi dima diroha mnin tbghiw tssaybo chi frame jdida
+    // Hadi hia li kat3ti dak couleur sfer
+    JPanel panel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(new Color(255, 255, 153));
+            g.fillRect(0, 0, getWidth(), getHeight());
+        }
+    };
 
-    public Login(){
+    public Login() {
         this.setTitle("Resto universitaire - Se connecter");
         this.setBounds(200, 60, 1200, 717);
-        Container contentPane = getContentPane();
-        contentPane.setBackground(new Color(255, 255, 153));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.panel.setLayout(null);
@@ -29,37 +38,37 @@ public class Login extends JFrame{
         // Partie a droite
         JLabel seConnecter = new JLabel("Veuillez s'identifier");
         seConnecter.setBounds(725, 160, 400, 30);
-        Font logoFontConn = new Font("Times New Roman", Font.BOLD, 38);
+        Font logoFontConn = new Font("Cambria", Font.BOLD, 38);
         seConnecter.setFont(logoFontConn);
-        seConnecter.setForeground(Color.red);
+        seConnecter.setForeground(Color.RED); // Set foreground color to red
 
         JLabel login = new JLabel("E-mail");
         login.setBounds(800, 220, 130, 25);
 
         JTextField loginTf = new JTextField();
-        loginTf.setBounds(800, 250, 175, 25);
+        loginTf.setBounds(800, 250, 200, 25);
 
         JLabel password = new JLabel("Mot de passe");
         password.setBounds(800, 300, 130, 25);
 
         JPasswordField passwordTf = new JPasswordField();
-        passwordTf.setBounds(800, 330, 175, 25);
+        passwordTf.setBounds(800, 330, 200, 25);
 
         JButton loginButton = new JButton("Se connecter");
-        loginButton.setBounds(812, 380, 150, 30);
+        loginButton.setBounds(828, 380, 150, 30);
         loginButton.setBackground(new Color(60, 160, 240));
         loginButton.setForeground(Color.WHITE);
 
         JButton creerCompte = new JButton("S'inscrire");
-        creerCompte.setBounds(812, 430, 150, 30);
+        creerCompte.setBounds(828, 430, 150, 30);
         creerCompte.setBackground(new Color(60, 160, 240));
         creerCompte.setForeground(Color.WHITE);
 
-        Font labelFont = login.getFont();
-        login.setFont(new Font(labelFont.getName(), Font.PLAIN, 21));
-        password.setFont(new Font(labelFont.getName(), Font.PLAIN, 21));
-        loginButton.setFont(new Font(labelFont.getName(), Font.PLAIN, 18));
-        creerCompte.setFont(new Font(labelFont.getName(), Font.PLAIN, 18));
+        // Hna ghir 9adit l fonts dyal dok labels a buttons
+        login.setFont(new Font("Verdana", Font.PLAIN, 19));
+        password.setFont(new Font("Verdana", Font.PLAIN, 19));
+        loginButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        creerCompte.setFont(new Font("Arial", Font.PLAIN, 18));
 
         this.panel.add(bienvenue);
         this.panel.add(resto);
@@ -72,6 +81,24 @@ public class Login extends JFrame{
         this.panel.add(creerCompte);
 
         this.setContentPane(this.panel);
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                // Retrieving username and password
+                String username = loginTf.getText();
+                String pwd = new String(passwordTf.getPassword());
+            }
+        });
+
+        creerCompte.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                // interface dyal login ghatmshi w ghatla3 dyal sign up
+                new Signup().setVisible(true);
+                setVisible(false);
+            }
+        });
 
         this.setVisible(true);
     }
