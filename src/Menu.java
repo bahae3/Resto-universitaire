@@ -8,6 +8,7 @@ public class Menu extends JFrame {
             super.paintComponent(g);
             g.setColor(new Color(237, 210, 133));
             g.fillRect(0, 0, getWidth(), getHeight());
+
         }
     };
 
