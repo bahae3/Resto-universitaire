@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import database.*;
 
 public class Login extends JFrame {
     // Hadi dima diroha mnin tbghiw tssaybo chi frame jdida
@@ -10,7 +9,7 @@ public class Login extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(new Color(255, 255, 153));
+            g.setColor(new Color(237, 210, 133));
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     };
@@ -40,64 +39,74 @@ public class Login extends JFrame {
         seConnecter.setBounds(725, 160, 400, 30);
         Font logoFontConn = new Font("Cambria", Font.BOLD, 38);
         seConnecter.setFont(logoFontConn);
-        seConnecter.setForeground(Color.RED); // Set foreground color to red
+        seConnecter.setForeground(Color.RED);
 
-        JLabel login = new JLabel("E-mail");
-        login.setBounds(800, 220, 130, 25);
+        JLabel email = new JLabel("E-mail:");
+        email.setBounds(800, 220, 130, 25);
 
-        JTextField loginTf = new JTextField();
-        loginTf.setBounds(800, 250, 200, 25);
+        JTextField emailData = new JTextField();
+        emailData.setBounds(800, 250, 200, 25);
 
-        JLabel password = new JLabel("Mot de passe");
-        password.setBounds(800, 300, 130, 25);
 
-        JPasswordField passwordTf = new JPasswordField();
-        passwordTf.setBounds(800, 330, 200, 25);
+        JLabel mdp = new JLabel("Mot de passe:");
+        mdp.setBounds(800, 300, 135, 25);
+
+        JPasswordField mdpData = new JPasswordField();
+        mdpData.setBounds(800, 330, 200, 25);
+
+        JLabel loginError = new JLabel("");
+        loginError.setForeground(Color.RED);
+        loginError.setFont(new Font("Verdana", Font.ITALIC, 12));
+        loginError.setBounds(801, 360, 200, 25);
 
         JButton loginButton = new JButton("Se connecter");
-        loginButton.setBounds(828, 380, 150, 30);
+        loginButton.setBounds(828, 390, 150, 30);
         loginButton.setBackground(new Color(60, 160, 240));
         loginButton.setForeground(Color.WHITE);
 
         JButton creerCompte = new JButton("S'inscrire");
-        creerCompte.setBounds(828, 430, 150, 30);
+        creerCompte.setBounds(828, 440, 150, 30);
         creerCompte.setBackground(new Color(60, 160, 240));
         creerCompte.setForeground(Color.WHITE);
 
         // Hna ghir 9adit l fonts dyal dok labels a buttons
-        login.setFont(new Font("Verdana", Font.PLAIN, 19));
-        password.setFont(new Font("Verdana", Font.PLAIN, 19));
+        email.setFont(new Font("Verdana", Font.PLAIN, 19));
+        mdp.setFont(new Font("Verdana", Font.PLAIN, 19));
         loginButton.setFont(new Font("Arial", Font.PLAIN, 18));
         creerCompte.setFont(new Font("Arial", Font.PLAIN, 18));
 
         this.panel.add(bienvenue);
         this.panel.add(resto);
         this.panel.add(seConnecter);
-        this.panel.add(login);
-        this.panel.add(loginTf);
-        this.panel.add(password);
-        this.panel.add(passwordTf);
+        this.panel.add(email);
+        this.panel.add(emailData);
+        this.panel.add(mdp);
+        this.panel.add(mdpData);
+        this.panel.add(loginError);
         this.panel.add(loginButton);
         this.panel.add(creerCompte);
 
         this.setContentPane(this.panel);
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                // Retrieving username and password
-                String username = loginTf.getText();
-                String pwd = new String(passwordTf.getPassword());
+        loginButton.addActionListener(evt -> {
+            // Retrieving username and mdp
+            String emailUser = emailData.getText();
+            String mdpUser = new String(mdpData.getPassword());
+
+            if (database.userLogin(emailUser, mdpUser)){
+                setVisible(false);
+                new Menu().setVisible(true);
+            } else {
+                loginError.setText("Email ou mot de passe incorrect.");
+                emailData.setText("");
+                mdpData.setText("");
             }
         });
 
-        creerCompte.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                // interface dyal login ghatmshi w ghatla3 dyal sign up
-                new Signup().setVisible(true);
-                setVisible(false);
-            }
+        creerCompte.addActionListener(evt -> {
+            // interface dyal email ghatmshi w ghatla3 dyal sign up
+            setVisible(false);
+            new Signup().setVisible(true);
         });
 
         this.setVisible(true);
