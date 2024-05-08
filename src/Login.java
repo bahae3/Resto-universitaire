@@ -94,8 +94,12 @@ public class Login extends JFrame {
             String mdpUser = new String(mdpData.getPassword());
 
             if (database.userLogin(emailUser, mdpUser)){
-                setVisible(false);
-                new Menu().setVisible(true);
+                if(database.isAdmin(emailUser, mdpUser) == 1){
+                    System.out.println("Admin logged in.");
+                } else {
+                    setVisible(false);
+                    new MenuClient().setVisible(true);
+                }
             } else {
                 loginError.setText("Email ou mot de passe incorrect.");
                 emailData.setText("");
