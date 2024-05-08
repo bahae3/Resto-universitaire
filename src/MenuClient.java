@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Menu extends JFrame {
+public class MenuClient extends JFrame {
     JPanel panel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
@@ -12,7 +12,7 @@ public class Menu extends JFrame {
         }
     };
 
-    public Menu(){
+    public MenuClient(){
         this.setTitle("Resto universitaire - Menu");
         this.setBounds(200, 60, 1200, 717);
         Container contentPane = getContentPane();
