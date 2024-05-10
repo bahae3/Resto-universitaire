@@ -204,7 +204,9 @@ public class PanierClient extends JFrame {
         });
 
         menuButton.addActionListener(evt -> {
-
+            // this closes this interface and opens the menu interface
+            this.setVisible(false);
+            new MenuClient().setVisible(true);
         });
 
         effacerButton.addActionListener(evt -> {
