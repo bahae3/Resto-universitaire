@@ -174,7 +174,6 @@ public class PanierClient extends JFrame {
 
         totalLabel = new JLabel("Total à payer est : " + Math.round(totalAmount * 100.0) / 100.0 + " MAD", SwingConstants.CENTER);
         totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
-
         totalLabel.setBackground(new Color(237, 210, 133));
         totalLabel.setOpaque(true);
 
@@ -211,6 +210,10 @@ public class PanierClient extends JFrame {
         effacerButton.addActionListener(evt -> {
             // The ArrayList panier will be cleared (empty)
             paniers.clear();
+
+            // Price becomes 0 DH
+            totalAmount = 0;
+            totalLabel.setText("Total à payer est : " + totalAmount + " MAD");
 
             // The list will be empty here and has the message in the variable emptyLabel
             // imad, sayeb position f center
