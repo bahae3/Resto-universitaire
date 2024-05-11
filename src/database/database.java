@@ -32,7 +32,6 @@ public class database {
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
         return false;
@@ -70,6 +69,38 @@ public class database {
             return 0;
         }
         return 0;
+    }
+
+    public static boolean userSignup(String prenomUser, String nomUser, String emailUser, String mdpUser, Integer codeUser) {
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/resto_univ";
+        String usernameDB = "root";
+        String passwordDB = "";
+
+        try (Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB)) {
+            // Stocking data to a table
+            String users = "INSERT INTO user (nom, prenom, email, mdp, codeUser, estPersonnel) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(users);
+            // making the first letter capitalized
+            String nomUserCapitalized = nomUser.substring(0, 1).toUpperCase() + nomUser.substring(1);
+            preparedStatement.setString(1, nomUserCapitalized);
+
+            String prenomUserCapitalized = prenomUser.substring(0, 1).toUpperCase() + prenomUser.substring(1);
+            preparedStatement.setString(2, prenomUserCapitalized);
+            preparedStatement.setString(3, emailUser);
+            preparedStatement.setString(4, mdpUser);
+            preparedStatement.setInt(5, codeUser);
+            preparedStatement.setBoolean(6, false);
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            // Check if insertion was successful
+            if (rowsInserted > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
     }
 
 }
