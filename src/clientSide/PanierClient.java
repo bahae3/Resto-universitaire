@@ -1,3 +1,5 @@
+package clientSide;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -51,7 +53,7 @@ public class PanierClient extends JFrame {
 
     private JLabel createTitleLabel() {
         JLabel titleLabel = new JLabel("Mon panier", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
         return titleLabel;
     }
@@ -173,7 +175,7 @@ public class PanierClient extends JFrame {
         }
 
         totalLabel = new JLabel("Total à payer est : " + Math.round(totalAmount * 100.0) / 100.0 + " MAD", SwingConstants.CENTER);
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        totalLabel.setFont(new Font("Arial", Font.BOLD, 20));
         totalLabel.setBackground(new Color(237, 210, 133));
         totalLabel.setOpaque(true);
 
@@ -200,7 +202,9 @@ public class PanierClient extends JFrame {
         buttonPanel.add(effacerButton);
 
         confirmerButton.addActionListener(evt -> {
-
+            setVisible(false);
+            new CommandeClient(paniers).setVisible(true);
+//            JOptionPane.showMessageDialog(this, "Commande en cours de préparation.");
         });
 
         menuButton.addActionListener(evt -> {
@@ -231,7 +235,7 @@ public class PanierClient extends JFrame {
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setBackground(new Color(75, 0, 130));
+        button.setBackground(new Color(60, 160, 240));
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Arial", Font.BOLD, 16));
         return button;
