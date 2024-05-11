@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import clientSide.MenuClient;
 import database.*;
 
 public class Login extends JFrame {
@@ -94,6 +95,7 @@ public class Login extends JFrame {
             String mdpUser = new String(mdpData.getPassword());
 
             if (database.userLogin(emailUser, mdpUser)){
+                // 1 is true and 0 is false
                 if(database.isAdmin(emailUser, mdpUser) == 1){
                     System.out.println("Admin logged in.");
                 } else {
