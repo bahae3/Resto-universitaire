@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import database.*;
 
 
 public class Signup extends JFrame {
@@ -61,6 +62,10 @@ public class Signup extends JFrame {
         retour.setBackground(new Color(255, 0, 0));
         retour.setForeground(Color.WHITE);
 
+        JLabel errorMessage = new JLabel("");
+        errorMessage.setBounds(390,455 ,500, 25);
+        errorMessage.setForeground(Color.RED);
+
         prenom.setFont(new Font("Verdana", Font.PLAIN, 18));
         nom.setFont(new Font("Verdana", Font.PLAIN, 18));
         email.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -68,6 +73,7 @@ public class Signup extends JFrame {
         code.setFont(new Font("Verdana", Font.PLAIN, 18));
         signup.setFont(new Font("Arial", Font.PLAIN, 18));
         retour.setFont(new Font("Arial", Font.PLAIN, 18));
+        errorMessage.setFont(new Font("Arial", Font.PLAIN, 18));
 
         this.panel.add(prenom);
         this.panel.add(prenomData);
@@ -81,6 +87,7 @@ public class Signup extends JFrame {
         this.panel.add(codeData);
         this.panel.add(signup);
         this.panel.add(retour);
+        this.panel.add(errorMessage);
 
         this.setContentPane(this.panel);
 
@@ -91,6 +98,14 @@ public class Signup extends JFrame {
             String emailUser = emailData.getText();
             String mdpUser = new String(mdpData.getPassword());
             Integer codeUser = Integer.valueOf(codeData.getText());
+            if(database.userSignup(prenomUser, nomUser, emailUser, mdpUser, codeUser)){
+                System.out.println("Data bien stockees.");
+                setVisible(false);
+                new Login().setVisible(true);
+            } else {
+                // hadi makatkhdmch ma3rftch 3lash
+                errorMessage.setText("Erreur lors du stockage de donnees. Veuillez reessayer.");
+            }
 
         });
 
