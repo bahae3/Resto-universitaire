@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+
 import clientSide.MenuClient;
 import database.*;
+import photos.ResizableImageLabel;
 
 public class Login extends JFrame {
     // Hadi dima diroha mnin tbghiw tssaybo chi frame jdida
@@ -24,16 +26,21 @@ public class Login extends JFrame {
 
         // Partie a gauche
         JLabel bienvenue = new JLabel("Bienvenue . . .");
-        bienvenue.setBounds(120, 250, 400, 40);
+        bienvenue.setBounds(120, 130, 400, 40);
         Font logoFontBvn = new Font("Lucida Handwriting", Font.BOLD, 42);
         bienvenue.setFont(logoFontBvn);
         bienvenue.setForeground(new Color(100, 100, 255));
 
         JLabel resto = new JLabel("Resto universitaire");
-        resto.setBounds(120, 305, 400, 40);
+        resto.setBounds(120, 185, 400, 40);
         Font logoFontResto = new Font("Segoe Script", Font.PLAIN, 38);
         resto.setFont(logoFontResto);
         resto.setForeground(new Color(100, 100, 255));
+
+        // Adding an image
+        ResizableImageLabel imageLabel = new ResizableImageLabel("src/resto.png", 190, 190);
+        imageLabel.setBounds(210, 290, 190, 190);
+        this.panel.add(imageLabel);
 
         // Partie a droite
         JLabel seConnecter = new JLabel("Veuillez s'identifier");

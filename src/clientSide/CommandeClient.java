@@ -1,10 +1,16 @@
-package monpanier;
+package clientSide;
+
+import objects.PanierObject;
+import photos.ResizableImageLabel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class MesCommandes extends JFrame {
+public class CommandeClient extends JFrame {
+    static ArrayList<PanierObject> paniers;
+    static double totalAmount;
     JPanel panel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
@@ -14,11 +20,18 @@ public class MesCommandes extends JFrame {
         }
     };
 
-    public MesCommandes() {
-        setTitle("Mes Commandes ");
-        setSize(700, 630);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public CommandeClient(ArrayList<PanierObject> paniers, double totalAmount) {
+        CommandeClient.totalAmount = totalAmount;
+        System.out.println("Prix total: " + totalAmount);
+        CommandeClient.paniers = paniers;
+        System.out.println("Size is: " + paniers.size());
+        for(PanierObject p : paniers){
+            System.out.println(p.nomMenu);
+        }
 
+        setTitle("Resto universitaire - Mes Commandes");
+        setSize(1200, 717);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(200, 60);
 
         panel.setLayout(new BorderLayout());
@@ -69,7 +82,7 @@ public class MesCommandes extends JFrame {
         
         listPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
-        for (int i = 0; i < 3; i++) {
+        for (PanierObject panier : paniers) {
             JPanel itemPanel = new JPanel(new BorderLayout());
             itemPanel.setBackground(Color.WHITE);
             itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 0));
@@ -77,21 +90,20 @@ public class MesCommandes extends JFrame {
             JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEADING)); 
             infoPanel.setBackground(Color.WHITE);
 
-            JLabel quantityLabel = new JLabel(1 + "x ");
+            JLabel quantityLabel = new JLabel(panier.quantite + "x ");
             quantityLabel.setFont(new Font("Arial", Font.BOLD, 14));
             infoPanel.add(quantityLabel);
 
-            JPanel squarePanel = new JPanel();
-            squarePanel.setPreferredSize(new Dimension(80, 80));
-            squarePanel.setBackground(Color.LIGHT_GRAY);
-            infoPanel.add(squarePanel);
+            ResizableImageLabel imageLabel = new ResizableImageLabel("src/photos/" + panier.nomPhoto + ".jpg", 80, 80);
+            infoPanel.add(imageLabel);
 
-            JLabel itemNameLabel = new JLabel("Nom Plat ");
+            JLabel itemNameLabel = new JLabel(panier.nomMenu);
             itemNameLabel.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
             itemNameLabel.setBackground(Color.WHITE);
             itemNameLabel.setOpaque(true);
             itemNameLabel.setFont(new Font("Arial", Font.BOLD, 16));
-            JLabel itemPriceLabel = new JLabel("$prix");
+
+            JLabel itemPriceLabel = new JLabel(String.valueOf(panier.prix));
             itemPriceLabel.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
             itemPriceLabel.setBackground(Color.WHITE);
             itemPriceLabel.setOpaque(true);
@@ -142,7 +154,7 @@ public class MesCommandes extends JFrame {
         buttonPanel.setBackground(new Color(237, 210, 133));
 
         JButton OuiButton = createButton("Oui");
-        JButton NonButton = createButton("N");
+        JButton NonButton = createButton("Non");
 
         Dimension buttonSize = new Dimension(160, 40);
         OuiButton.setPreferredSize(buttonSize);
@@ -150,6 +162,16 @@ public class MesCommandes extends JFrame {
 
         buttonPanel.add(OuiButton);
         buttonPanel.add(NonButton);
+
+        OuiButton.addActionListener(evt -> {
+            this.setVisible(false);
+            new Remerciement().setVisible(true);
+        });
+
+        NonButton.addActionListener(evt -> {
+            this.setVisible(false);
+            new Reclamation().setVisible(true);
+        });
 
         return buttonPanel;
     }
@@ -162,7 +184,5 @@ public class MesCommandes extends JFrame {
         return button;
     }
 
-    public static void main(String[] args) {
-        new MesCommandes();
-    }
+
 }

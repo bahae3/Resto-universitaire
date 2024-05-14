@@ -10,6 +10,7 @@ import photos.ResizableImageLabel;
 
 public class PanierClient extends JFrame {
     JPanel listPanel;
+    static ArrayList<MenuObject> menuItems;
     ArrayList<PanierObject> paniers = new ArrayList<>();
     double totalAmount;
     JLabel totalLabel;
@@ -22,13 +23,12 @@ public class PanierClient extends JFrame {
         }
     };
 
-    public PanierClient() {
+    public PanierClient(ArrayList<MenuObject> menuItems) {
+        PanierClient.menuItems = menuItems;
         totalAmount = 0;
         setTitle("Resto universitaire - Mon panier");
         setSize(1200, 717);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
         setLocation(200, 60);
 
         panel.setLayout(new BorderLayout());
@@ -49,6 +49,7 @@ public class PanierClient extends JFrame {
 
         setContentPane(panel);
         setVisible(true);
+
     }
 
     private JLabel createTitleLabel() {
@@ -63,20 +64,23 @@ public class PanierClient extends JFrame {
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setBackground(Color.WHITE);
 
-        ArrayList<MenuObject> items = new ArrayList<>();
-        items.add(new MenuObject(1, "Pizza", "fiha lfrite", "src/photos/burger.jpg", 40.4));
-        items.add(new MenuObject(1, "Pizza", "fiha lfrite", "src/photos/burger.jpg", 40.4));
-        items.add(new MenuObject(2, "Tacos", "fiha lfrite", "src/photos/burger.jpg", 35));
-        items.add(new MenuObject(1, "Pizza", "fiha lfrite", "src/photos/burger.jpg", 40.4));
-        items.add(new MenuObject(2, "Tacos", "fiha lfrite", "src/photos/burger.jpg", 35));
-        items.add(new MenuObject(3, "Panini", "fiha lfrite", "src/photos/burger.jpg", 12.5));
-        items.add(new MenuObject(4, "Plat nugget", "fiha lfrite", "src/photos/burger.jpg", 30));
-        items.add(new MenuObject(5, "Bocadillos", "fiha lfrite", "src/photos/burger.jpg", 7));
+//        ArrayList<MenuObject> menuItems = new ArrayList<>();
+//        menuItems.add(new MenuObject(1, "Eau minérale", "src/photos/Eau minérale.jpg", 10.4, "En cours de préparation"));
+//        menuItems.add(new MenuObject(1, "Eau minérale", "src/photos/Eau minérale.jpg", 10.4, "En cours de préparation"));
+//        menuItems.add(new MenuObject(1, "Eau minérale", "src/photos/Eau minérale.jpg", 10.4, "En cours de préparation"));
+//
+//        menuItems.add(new MenuObject(2, "Café noir", "src/photos/Café noir.jpg", 35, "En cours de préparation"));
+//        menuItems.add(new MenuObject(2, "Café noir", "src/photos/Café noir.jpg", 35, "En cours de préparation"));
+//
+//
+//        menuItems.add(new MenuObject(3, "Tajine de poisson", "src/photos/Tajine de poisson.jpg", 12.5, "En cours de préparation"));
+//        menuItems.add(new MenuObject(4, "Jus d'orange", "src/photos/Jus d'orange.jpg", 30, "En cours de préparation"));
+//        menuItems.add(new MenuObject(5, "Chebakia", "src/photos/Chebakia.jpg", 7, "En cours de préparation"));
 
 
         // Hna kan3amer array fiha elements dyal panier mn menu
 
-        for (MenuObject menu : items) {
+        for (MenuObject menu : menuItems) {
             boolean found = false;
             for (PanierObject p : paniers) {
                 if (p.idMenu == menu.idMenu) {
@@ -86,7 +90,7 @@ public class PanierClient extends JFrame {
                 }
             }
             if (!found) {
-                paniers.add(new PanierObject(menu.idMenu, 1, menu.nomPhoto, menu.nom, menu.prix));
+                paniers.add(new PanierObject(menu.idMenu, 1, menu.nomPhoto, menu.nom, menu.prix, menu.etatLivraison));
             }
         }
 
@@ -100,7 +104,7 @@ public class PanierClient extends JFrame {
             quantityLabel.setFont(new Font("Arial", Font.BOLD, 14));
             itemPanel.add(quantityLabel);
 
-            ResizableImageLabel imageLabel = new ResizableImageLabel(panier.nomPhoto, 80, 80);
+            ResizableImageLabel imageLabel = new ResizableImageLabel("src/photos/" + panier.nomPhoto + ".jpg", 80, 80);
             itemPanel.add(imageLabel);
 
             JLabel itemNameLabel = new JLabel(panier.nomMenu);
@@ -121,6 +125,7 @@ public class PanierClient extends JFrame {
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             buttonPanel.setBackground(Color.WHITE);
 
+            // Buttons interactions
             JButton plusButton = new JButton("+");
             plusButton.setBackground(Color.WHITE);
             plusButton.setForeground(Color.BLACK);
@@ -203,7 +208,7 @@ public class PanierClient extends JFrame {
 
         confirmerButton.addActionListener(evt -> {
             setVisible(false);
-            new CommandeClient(paniers).setVisible(true);
+            new CommandeClient(paniers, totalAmount).setVisible(true);
 //            JOptionPane.showMessageDialog(this, "Commande en cours de préparation.");
         });
 
@@ -241,7 +246,5 @@ public class PanierClient extends JFrame {
         return button;
     }
 
-    public static void main(String[] args) {
-        new PanierClient();
-    }
+
 }
