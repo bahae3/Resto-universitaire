@@ -1,6 +1,9 @@
 package database;
 
+import objects.MenuObject;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class database {
     public static boolean userLogin(String userEmail, String userMdp) {
@@ -102,5 +105,52 @@ public class database {
         }
         return false;
     }
+
+    public static ArrayList<MenuObject> selectMenu(int idCategorie) {
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/resto_univ";
+        String usernameDB = "root";
+        String passwordDB = "";
+        ArrayList<MenuObject> menuItems = new ArrayList<>();
+        ResultSet resultSet = null; // Initialize to null
+        try {
+            // Establishing the connection
+            Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB);
+            // Fetching data from a table
+            String query = "SELECT * FROM menu WHERE (jourMenu IS NULL OR jourMenu=CURDATE()) and idCategorie=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, idCategorie);
+            resultSet = preparedStatement.executeQuery();
+
+            // Process the ResultSet
+            while (resultSet.next()) {
+                int id = resultSet.getInt("idMenu");
+                String nom = resultSet.getString("nom");
+                String jourMenu = resultSet.getString("jourMenu");
+                String etatLivraison = "En cours de preparation";
+                double prix = resultSet.getDouble("prix");
+                menuItems.add(new MenuObject(id, 0, nom, nom, jourMenu, etatLivraison, prix));
+            }
+
+            // Close the connections
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception properly
+            // You may want to log the error or display a message to the user
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return menuItems;
+    }
+
 
 }
