@@ -105,6 +105,8 @@ public class Login extends JFrame {
                 // 1 is true and 0 is false
                 if(database.isAdmin(emailUser, mdpUser) == 1){
                     System.out.println("Admin logged in.");
+//                    setVisible(false);
+//                    new MenuAdmin().setVisible(true);
                 } else {
                     setVisible(false);
                     new MenuClient().setVisible(true);
