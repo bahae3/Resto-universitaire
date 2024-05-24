@@ -1,12 +1,13 @@
 package objects;
 
 public class MenuObject {
-    public int idMenu;
+    public int idMenu, quantite;
     public String nom, nomPhoto, jourMenu, etatLivraison;
     public double prix;
 
-    public MenuObject(int idMenu, String nom, String nomPhoto, String jourMenu,String etatLivraison, double prix) {
+    public MenuObject(int idMenu, int qtt,String nom, String nomPhoto, String jourMenu,String etatLivraison, double prix) {
         this.idMenu = idMenu;
+        this.quantite = qtt;
         this.nom = nom;
         this.nomPhoto = nomPhoto;
         this.prix = prix;
