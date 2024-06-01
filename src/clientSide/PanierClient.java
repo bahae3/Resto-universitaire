@@ -9,6 +9,7 @@ import objects.*;
 import photos.ResizableImageLabel;
 
 public class PanierClient extends JFrame {
+    int idUser;
     JPanel listPanel;
     static ArrayList<MenuObject> menuItems;
     ArrayList<PanierObject> paniers = new ArrayList<>();
@@ -23,7 +24,8 @@ public class PanierClient extends JFrame {
         }
     };
 
-    public PanierClient(ArrayList<MenuObject> menuItems) {
+    public PanierClient(ArrayList<MenuObject> menuItems, int idUser) {
+        this.idUser = idUser;
         PanierClient.menuItems = menuItems;
         totalAmount = 0;
         setTitle("Resto universitaire - Mon panier");
@@ -64,22 +66,7 @@ public class PanierClient extends JFrame {
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setBackground(Color.WHITE);
 
-//        ArrayList<MenuObject> menuItems = new ArrayList<>();
-//        menuItems.add(new MenuObject(1, "Eau minérale", "src/photos/Eau minérale.jpg", 10.4, "En cours de préparation"));
-//        menuItems.add(new MenuObject(1, "Eau minérale", "src/photos/Eau minérale.jpg", 10.4, "En cours de préparation"));
-//        menuItems.add(new MenuObject(1, "Eau minérale", "src/photos/Eau minérale.jpg", 10.4, "En cours de préparation"));
-//
-//        menuItems.add(new MenuObject(2, "Café noir", "src/photos/Café noir.jpg", 35, "En cours de préparation"));
-//        menuItems.add(new MenuObject(2, "Café noir", "src/photos/Café noir.jpg", 35, "En cours de préparation"));
-//
-//
-//        menuItems.add(new MenuObject(3, "Tajine de poisson", "src/photos/Tajine de poisson.jpg", 12.5, "En cours de préparation"));
-//        menuItems.add(new MenuObject(4, "Jus d'orange", "src/photos/Jus d'orange.jpg", 30, "En cours de préparation"));
-//        menuItems.add(new MenuObject(5, "Chebakia", "src/photos/Chebakia.jpg", 7, "En cours de préparation"));
-
-
         // Hna kan3amer array fiha elements dyal panier mn menu
-
         for (MenuObject menu : menuItems) {
             boolean found = false;
             for (PanierObject p : paniers) {
@@ -94,8 +81,11 @@ public class PanierClient extends JFrame {
             }
         }
 
+        System.out.println(paniers.size());
+
 
         for (PanierObject panier : paniers) {
+            System.out.println(panier.etatLivraison);
             JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
             itemPanel.setBackground(Color.WHITE);
             itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 0));
@@ -118,6 +108,7 @@ public class PanierClient extends JFrame {
             itemPriceLabel.setBackground(Color.WHITE);
             itemPriceLabel.setOpaque(true);
             itemPriceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
             JPanel labelsPanel = new JPanel(new GridLayout(2, 1));
             labelsPanel.add(itemNameLabel);
             labelsPanel.add(itemPriceLabel);
@@ -208,14 +199,21 @@ public class PanierClient extends JFrame {
 
         confirmerButton.addActionListener(evt -> {
             setVisible(false);
-            new CommandeClient(paniers, totalAmount).setVisible(true);
-//            JOptionPane.showMessageDialog(this, "Commande en cours de préparation.");
+            boolean inserted = false;
+            for (PanierObject p : paniers){
+                if (database.database.insertCommande(p.idMenu, this.idUser, p.quantite, p.etatLivraison)){
+                    inserted = true;
+                }
+            }
+            if (inserted){
+                new CommandeClient(totalAmount, this.idUser).setVisible(true);
+            }
         });
 
         menuButton.addActionListener(evt -> {
             // this closes this interface and opens the menu interface
             this.setVisible(false);
-            new MenuClient().setVisible(true);
+            new MenuClient(this.idUser).setVisible(true);
         });
 
         effacerButton.addActionListener(evt -> {

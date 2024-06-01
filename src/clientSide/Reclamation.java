@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Reclamation extends JFrame {
+    int idUser;
     JPanel panel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
@@ -13,7 +14,8 @@ public class Reclamation extends JFrame {
         }
     };
 
-    public Reclamation() {
+    public Reclamation(int idUser) {
+        this.idUser = idUser;
         //style de ma fenetre
         setTitle("Resto universitaire - Reclamation");
         this.setBounds(200, 60, 1200, 717);
@@ -57,7 +59,7 @@ public class Reclamation extends JFrame {
 
         menuButton.addActionListener(evt -> {
             setVisible(false);
-            new MenuClient();
+            new MenuClient(this.idUser);
         });
 
         quitterButton.addActionListener(evt -> System.exit(0));

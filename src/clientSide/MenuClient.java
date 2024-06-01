@@ -1,5 +1,6 @@
 package clientSide;
 
+import adminSide.GestionMenu;
 import database.database;
 import objects.MenuObject;
 import photos.ResizableImageLabel;
@@ -10,6 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MenuClient extends JFrame {
+    int idUser;
     ArrayList<MenuObject> menu = database.selectMenu(1);
     ArrayList<MenuObject> panier = new ArrayList<>();
 
@@ -22,7 +24,8 @@ public class MenuClient extends JFrame {
         }
     };
 
-    public MenuClient() {
+    public MenuClient(int idUser) {
+        this.idUser = idUser;
         this.setTitle("Resto universitaire - Menu");
         this.setBounds(200, 60, 1200, 717);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,8 +117,10 @@ public class MenuClient extends JFrame {
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setBackground(Color.WHITE);
+        System.out.println("Id user: " + this.idUser);
 
         for (MenuObject m : menu) {
+            System.out.println(m.etatLivraison);
             JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
             itemPanel.setBackground(Color.WHITE);
             itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 0));
@@ -169,9 +174,11 @@ public class MenuClient extends JFrame {
             minusButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             buttonPanel.add(minusButton, BorderLayout.CENTER);
             minusButton.addActionListener(evt -> {
-                m.quantite--;
-                quantityLabel.setText(m.quantite + "x");
-                panier.remove(m);
+                if (m.quantite > 0){
+                    m.quantite--;
+                    quantityLabel.setText(m.quantite + "x");
+                    panier.remove(m);
+                }
             });
 
 
@@ -206,7 +213,7 @@ public class MenuClient extends JFrame {
 
         panierButton.addActionListener(evt -> {
             setVisible(false);
-            new PanierClient(panier);
+            new PanierClient(panier, this.idUser);
         });
 
         return buttonPanel;
@@ -219,5 +226,9 @@ public class MenuClient extends JFrame {
         button.setFont(new Font("Arial", Font.BOLD, 16));
         return button;
     }
+
+//    public static void main(String[] args) {
+//        new MenuClient(1);
+//    }
 
 }
