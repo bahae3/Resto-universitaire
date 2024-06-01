@@ -19,7 +19,7 @@ public class PanierClient extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(new Color(237, 210, 133));
+            g.setColor(new Color(219, 219, 219));
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     };
@@ -155,7 +155,7 @@ public class PanierClient extends JFrame {
         scrollPane.getViewport().setBackground(Color.WHITE);
 
 
-        Border border = BorderFactory.createLineBorder(new Color(237, 210, 133), 40);
+        Border border = BorderFactory.createLineBorder(new Color(219, 219, 219), 40);
         scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         return scrollPane;
@@ -172,7 +172,7 @@ public class PanierClient extends JFrame {
 
         totalLabel = new JLabel("Total à payer est : " + Math.round(totalAmount * 100.0) / 100.0 + " MAD", SwingConstants.CENTER);
         totalLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        totalLabel.setBackground(new Color(237, 210, 133));
+        totalLabel.setBackground(new Color(219, 219, 219));
         totalLabel.setOpaque(true);
 
         return totalLabel;
@@ -181,7 +181,7 @@ public class PanierClient extends JFrame {
 
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 60, 40));
-        buttonPanel.setBackground(new Color(237, 210, 133));
+        buttonPanel.setBackground(new Color(219, 219, 219));
 
         JButton confirmerButton = createButton("Confirmer");
         JButton menuButton = createButton("Menu");

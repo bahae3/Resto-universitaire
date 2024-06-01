@@ -16,7 +16,7 @@ public class CommandeClient extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(new Color(237, 210, 133));
+            g.setColor(new Color(219, 219, 219));
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     };
@@ -138,7 +138,7 @@ public class CommandeClient extends JFrame {
         scrollPane.getViewport().setBackground(Color.WHITE);
 
        
-        Border border = BorderFactory.createLineBorder(new Color(237, 210, 133), 40);
+        Border border = BorderFactory.createLineBorder(new Color(219, 219, 219), 40);
         scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         return scrollPane;
@@ -147,14 +147,14 @@ public class CommandeClient extends JFrame {
     private JLabel createConfirmationLabel() {
         JLabel confirmationLabel = new JLabel("Avez-vous reçu votre commande ?", SwingConstants.CENTER);
         confirmationLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        confirmationLabel.setBackground(new Color(237, 210, 133));
+        confirmationLabel.setBackground(new Color(219, 219, 219));
         confirmationLabel.setOpaque(true);
         return confirmationLabel;
     }
 
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 60, 40));
-        buttonPanel.setBackground(new Color(237, 210, 133));
+        buttonPanel.setBackground(new Color(219, 219, 219));
 
         JButton OuiButton = createButton("Oui");
         JButton NonButton = createButton("Non");

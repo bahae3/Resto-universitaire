@@ -9,7 +9,7 @@ public class Remerciement extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(new Color(237, 210, 133));
+            g.setColor(new Color(219, 219, 219));
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     };
@@ -20,7 +20,7 @@ public class Remerciement extends JFrame {
             setTitle("Resto universitaire - Bon Appetit");
             this.setBounds(200, 60, 1200, 717);
             Container contentPane = getContentPane();
-            contentPane.setBackground(new Color(255, 255, 153));
+            contentPane.setBackground(new Color(219, 219, 219));
             setLayout(null);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
