@@ -12,6 +12,13 @@ public class ResizableImageLabel extends JLabel {
 
     public ResizableImageLabel(String imagePath, int width, int height) {
         try {
+            // Check if the image file exists
+            File imageFile = new File(imagePath);
+            if (!imageFile.exists()) {
+                // i used a default image if the specified image does not exist
+                imagePath = "src/photos/no_photo.png";
+            }
+
             originalImage = ImageIO.read(new File(imagePath));
             Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             setIcon(new ImageIcon(scaledImage));
