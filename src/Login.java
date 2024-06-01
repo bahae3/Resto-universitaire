@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+import adminSide.GestionMenu;
 import clientSide.MenuClient;
 import database.*;
 import photos.ResizableImageLabel;
@@ -105,11 +106,11 @@ public class Login extends JFrame {
                 // 1 is true and 0 is false
                 if(database.isAdmin(emailUser, mdpUser) == 1){
                     System.out.println("Admin logged in.");
-//                    setVisible(false);
-//                    new MenuAdmin().setVisible(true);
+                    setVisible(false);
+                    new GestionMenu();
                 } else {
                     setVisible(false);
-                    new MenuClient().setVisible(true);
+                    new MenuClient(database.getUserId(emailUser, mdpUser));
                 }
             } else {
                 loginError.setText("Email ou mot de passe incorrect.");
