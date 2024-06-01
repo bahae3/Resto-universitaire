@@ -1,6 +1,6 @@
 package clientSide;
 
-import objects.PanierObject;
+import objects.CommandeObject;
 import photos.ResizableImageLabel;
 
 import javax.swing.*;
@@ -9,7 +9,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CommandeClient extends JFrame {
-    static ArrayList<PanierObject> paniers;
+    int idUser;
+    ArrayList<CommandeObject> commande;
     static double totalAmount;
     JPanel panel = new JPanel() {
         @Override
@@ -20,12 +21,14 @@ public class CommandeClient extends JFrame {
         }
     };
 
-    public CommandeClient(ArrayList<PanierObject> paniers, double totalAmount) {
+    public CommandeClient(double totalAmount, int idUser) {
+        this.idUser = idUser;
+        this.commande = database.database.selectCommande(this.idUser);
+
         CommandeClient.totalAmount = totalAmount;
         System.out.println("Prix total: " + totalAmount);
-        CommandeClient.paniers = paniers;
-        System.out.println("Size is: " + paniers.size());
-        for(PanierObject p : paniers){
+        System.out.println("Size is: " + commande.size());
+        for(CommandeObject p : commande){
             System.out.println(p.nomMenu);
         }
 
@@ -82,7 +85,7 @@ public class CommandeClient extends JFrame {
         
         listPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
-        for (PanierObject panier : paniers) {
+        for (CommandeObject commande : commande) {
             JPanel itemPanel = new JPanel(new BorderLayout());
             itemPanel.setBackground(Color.WHITE);
             itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 0));
@@ -90,20 +93,20 @@ public class CommandeClient extends JFrame {
             JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEADING)); 
             infoPanel.setBackground(Color.WHITE);
 
-            JLabel quantityLabel = new JLabel(panier.quantite + "x ");
+            JLabel quantityLabel = new JLabel(commande.quantite + "x ");
             quantityLabel.setFont(new Font("Arial", Font.BOLD, 14));
             infoPanel.add(quantityLabel);
 
-            ResizableImageLabel imageLabel = new ResizableImageLabel("src/photos/" + panier.nomPhoto + ".jpg", 80, 80);
+            ResizableImageLabel imageLabel = new ResizableImageLabel("src/photos/" + commande.nomMenu + ".jpg", 80, 80);
             infoPanel.add(imageLabel);
 
-            JLabel itemNameLabel = new JLabel(panier.nomMenu);
+            JLabel itemNameLabel = new JLabel(commande.nomMenu);
             itemNameLabel.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
             itemNameLabel.setBackground(Color.WHITE);
             itemNameLabel.setOpaque(true);
             itemNameLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
-            JLabel itemPriceLabel = new JLabel(String.valueOf(panier.prix));
+            JLabel itemPriceLabel = new JLabel(String.valueOf(commande.prix));
             itemPriceLabel.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
             itemPriceLabel.setBackground(Color.WHITE);
             itemPriceLabel.setOpaque(true);
@@ -165,12 +168,12 @@ public class CommandeClient extends JFrame {
 
         OuiButton.addActionListener(evt -> {
             this.setVisible(false);
-            new Remerciement().setVisible(true);
+            new Remerciement(this.idUser).setVisible(true);
         });
 
         NonButton.addActionListener(evt -> {
             this.setVisible(false);
-            new Reclamation().setVisible(true);
+            new Reclamation(this.idUser).setVisible(true);
         });
 
         return buttonPanel;
@@ -178,11 +181,14 @@ public class CommandeClient extends JFrame {
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setBackground(new Color(75, 0, 130));
+        button.setBackground(new Color(60, 160, 240));
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Arial", Font.BOLD, 16));
         return button;
     }
 
 
+    public static void main(String[] args) {
+        new CommandeClient(100, 1);
+    }
 }
