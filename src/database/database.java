@@ -164,10 +164,11 @@ public class database {
             while (resultSet.next()) {
                 int id = resultSet.getInt("idMenu");
                 String nom = resultSet.getString("nom");
+                String description = resultSet.getString("description");
                 String jourMenu = resultSet.getString("jourMenu");
                 String etatLivraison = "En cours de preparation";
                 double prix = resultSet.getDouble("prix");
-                menuItems.add(new MenuObject(id, 0, nom, nom, jourMenu, etatLivraison, prix));
+                menuItems.add(new MenuObject(id, 0, nom, nom , description, jourMenu, etatLivraison, prix));
             }
 
             // Close the connections
@@ -187,112 +188,6 @@ public class database {
         }
         return menuItems;
     }
-
-    public static boolean insertCommande(int idMenu, int idUser, int quantite, String etat) {
-        // Connecting to database
-        String url = "jdbc:mysql://localhost:3306/resto_univ";
-        String usernameDB = "root";
-        String passwordDB = "";
-
-        try (Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB)) {
-            // Stocking data to a table
-            String users = "INSERT INTO commande (idMenu, idUser, quantite, etat) VALUES (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(users);
-            preparedStatement.setInt(1, idMenu);
-            preparedStatement.setInt(2, idUser);
-            preparedStatement.setInt(3, quantite);
-            preparedStatement.setString(4, etat);
-            int rowsInserted = preparedStatement.executeUpdate();
-
-            // Check if insertion was successful
-            if (rowsInserted > 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            return false;
-        }
-        return false;
-    }
-
-    public static ArrayList<CommandeObject> selectCommande(int idUser) {
-        // Connecting to database
-        String url = "jdbc:mysql://localhost:3306/resto_univ";
-        String usernameDB = "root";
-        String passwordDB = "";
-        ArrayList<CommandeObject> commandeItems = new ArrayList<>();
-        ResultSet resultSet = null; // Initialize to null
-        try {
-            // Establishing the connection
-            Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB);
-            String query;
-            PreparedStatement preparedStatement;
-            // Fetching data from a table
-            query = "SELECT *\n" +
-                    "FROM Commande c\n" +
-                    "JOIN User u ON c.idUser = u.idUser\n" +
-                    "JOIN Menu m ON c.idMenu = m.idMenu \n" +
-                    "WHERE u.idUser=?";
-            // SELECT * FROM commande NATURAL JOIN user WHERE idUser=1;
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, idUser);
-
-            resultSet = preparedStatement.executeQuery();
-
-            // Process the ResultSet
-            while (resultSet.next()) {
-                int idMenu = resultSet.getInt("idMenu");
-                int quantite = resultSet.getInt("quantite");
-                String nomMenu = resultSet.getString("m.nom");
-                String etatLivraison = "En cours de preparation";
-                double prix = resultSet.getDouble("prix");
-                commandeItems.add(new CommandeObject(idMenu, nomMenu, prix, idUser, quantite, etatLivraison));
-            }
-
-            // Close the connections
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return commandeItems;
-    }
-
-
-    public static boolean deleteItem(int itemId) {
-        // Connecting to database
-        String url = "jdbc:mysql://localhost:3306/resto_univ";
-        String usernameDB = "root";
-        String passwordDB = "";
-
-        try (Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB)) {
-            // Stocking data to a table
-            String itemToDelete = "DELETE FROM menu WHERE idMenu=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(itemToDelete);
-            preparedStatement.setString(1, String.valueOf(itemId));
-            int rowsInserted = preparedStatement.executeUpdate();
-
-            // Check if insertion was successful
-            if (rowsInserted > 0) {
-                return true;
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
-
-
-    }
-
     public static boolean insertMenuToDb(String nom, int idCategorie, String description, String jour, double prix) {
         // Connecting to database
         String url = "jdbc:mysql://localhost:3306/resto_univ";
@@ -319,8 +214,177 @@ public class database {
         }
         return false;
     }
+    public static boolean updateItem(int idPlat, String nomPlat, int idCategorie, String description, String jourPlat, double prixPlat){
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/resto_univ";
+        String usernameDB = "root";
+        String passwordDB = "";
+
+        try (Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB)) {
+            // Stocking data to a table
+            String users = """
+                    UPDATE menu
+                    SET idCategorie=?, nom=?, description=?, jourMenu=?, prix=?
+                    WHERE idMenu=?""";
+            PreparedStatement preparedStatement = connection.prepareStatement(users);
+            preparedStatement.setInt(1, idCategorie);
+            preparedStatement.setString(2, nomPlat);
+            preparedStatement.setString(3, description);
+            preparedStatement.setString(4, jourPlat);
+            preparedStatement.setFloat(5, (float) prixPlat);
+            preparedStatement.setInt(6, idPlat);
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            // Check if insertion was successful
+            if (rowsInserted > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
+    }
+    public static boolean deleteItem(int itemId) {
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/resto_univ";
+        String usernameDB = "root";
+        String passwordDB = "";
+
+        try (Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB)) {
+            // Stocking data to a table
+            String itemToDelete = "DELETE FROM menu WHERE idMenu=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(itemToDelete);
+            preparedStatement.setString(1, String.valueOf(itemId));
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            // Check if insertion was successful
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+
+
+    }
+
+    public static boolean insertCommande(int idMenu, int idUser, int quantite, String etat, int numCommande) {
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/resto_univ";
+        String usernameDB = "root";
+        String passwordDB = "";
+
+        try (Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB)) {
+            // Stocking data to a table
+            String users = "INSERT INTO commande (idMenu, idUser, quantite, etat, numCommande) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(users);
+            preparedStatement.setInt(1, idMenu);
+            preparedStatement.setInt(2, idUser);
+            preparedStatement.setInt(3, quantite);
+            preparedStatement.setString(4, etat);
+            preparedStatement.setInt(5, numCommande);
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            // Check if insertion was successful
+            if (rowsInserted > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
+    }
+
+    public static ArrayList<CommandeObject> selectCommande(int idUser) {
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/resto_univ";
+        String usernameDB = "root";
+        String passwordDB = "";
+        ArrayList<CommandeObject> commandeItems = new ArrayList<>();
+        ResultSet resultSet = null; // Initialize to null
+        try {
+            // Establishing the connection
+            Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB);
+            String query;
+            PreparedStatement preparedStatement;
+            if (idUser == 0){
+                // Fetching data from a table
+                query = """
+                    SELECT *
+                    FROM Commande c
+                    JOIN User u ON c.idUser = u.idUser
+                    JOIN Menu m ON c.idMenu = m.idMenu\s
+                    """;
+                preparedStatement = connection.prepareStatement(query);
+            } else {
+                // Fetching data from a table
+                query = """
+                    SELECT *
+                    FROM Commande c
+                    JOIN User u ON c.idUser = u.idUser
+                    JOIN Menu m ON c.idMenu = m.idMenu\s
+                    WHERE u.idUser=?""";
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idUser);
+            }
+
+            resultSet = preparedStatement.executeQuery();
+            // Process the ResultSet
+            while (resultSet.next()) {
+                int idCommande = resultSet.getInt("idCommande");
+                int idMenu = resultSet.getInt("idMenu");
+                int quantite = resultSet.getInt("quantite");
+                String nomMenu = resultSet.getString("m.nom");
+                String etatLivraison = "En cours de preparation";
+                double prix = resultSet.getDouble("prix");
+                int numCommande = resultSet.getInt("numCommande");
+                commandeItems.add(new CommandeObject(idCommande, idMenu, nomMenu, prix, idUser, quantite, etatLivraison, numCommande));
+            }
+
+            // Close the connections
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return commandeItems;
+    }
+
+
+
 
     public static boolean modifierEtatCommande(int idCommande) {
-        return true;
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/resto_univ";
+        String usernameDB = "root";
+        String passwordDB = "";
+
+        try (Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB)) {
+            // Stocking data to a table
+            String users = "UPDATE commande SET etat=? WHERE idCommande=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(users);
+            preparedStatement.setString(1, "Livré");
+            preparedStatement.setInt(2, idCommande);
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            // Check if insertion was successful
+            if (rowsInserted > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
     }
 }
