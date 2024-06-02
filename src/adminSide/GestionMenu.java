@@ -82,7 +82,7 @@ public class GestionMenu extends JFrame {
             modifyButton.addActionListener(evt -> {
                 setVisible(false);
                 // Modifier plat avec son id
-//                new AjoutPlat();
+                new ModifierPlat(m, m.idMenu);
             });
 
             JButton deleteButton = createButton("Supprimer", new Color(255, 0, 0));
@@ -105,7 +105,7 @@ public class GestionMenu extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.getViewport().setBackground(Color.WHITE);
 
-        Border border = BorderFactory.createLineBorder(new Color(237, 210, 133), 40);
+        Border border = BorderFactory.createLineBorder(new Color(219, 219, 219), 40);
         scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         return scrollPane;
@@ -113,7 +113,7 @@ public class GestionMenu extends JFrame {
 
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 60, 40));
-        buttonPanel.setBackground(new Color(237, 210, 133));
+        buttonPanel.setBackground(new Color(219, 219, 219));
 
         JButton addButton = createButton("Ajouter un plat", new Color(60, 160, 240));
         addButton.addActionListener(evt -> {
@@ -124,7 +124,7 @@ public class GestionMenu extends JFrame {
         JButton deliveryButton = createButton("Livraisons", new Color(60, 160, 240));
         deliveryButton.addActionListener(evt -> {
             setVisible(false);
-            // new Livraisons();
+            new GestionLivraisons();
         });
 
         Dimension buttonSize = new Dimension(160, 40);
