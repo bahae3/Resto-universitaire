@@ -69,7 +69,7 @@ public class GestionDeLivraison extends JFrame {
         listPanel.add(etatLabel);
 
         for (CommandeObject commande : commande) {
-            System.out.println("Etat est : "+ commande.etatLivraison);
+            System.out.println("Etat est : " + commande.etatLivraison);
             JPanel articlePanel = createArticlePanel(commande.quantite, commande.nomMenu, commande.prix);
             JPanel etatPanel = createEtatPanel(commande.idCommande, commande.numCommande, commande.etatLivraison);
 
@@ -158,6 +158,7 @@ public class GestionDeLivraison extends JFrame {
                     if (database.database.modifierEtatCommande(idCommande)) {
                         setVisible(false);
                         new GestionDeLivraison();
+                        dispose();
                         deliveryStatusLabel.setText(livreOuNon + "Livré");
                         changeStatusButton.setEnabled(false);
                     }
@@ -181,7 +182,7 @@ public class GestionDeLivraison extends JFrame {
         } else {
             deleteCommande.addActionListener(evt -> {
                 // Delet the commande here
-                if(database.database.deletCommande(idCommande)){
+                if (database.database.deleteCommande(idCommande)) {
                     System.out.println("Commande supprimeee");
                 }
             });
