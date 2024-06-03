@@ -168,7 +168,7 @@ public class database {
                 String jourMenu = resultSet.getString("jourMenu");
                 String etatLivraison = "En cours de preparation";
                 double prix = resultSet.getDouble("prix");
-                menuItems.add(new MenuObject(id, 0, nom, nom , description, jourMenu, etatLivraison, prix));
+                menuItems.add(new MenuObject(id, 0, nom, nom, description, jourMenu, etatLivraison, prix));
             }
 
             // Close the connections
@@ -188,6 +188,7 @@ public class database {
         }
         return menuItems;
     }
+
     public static boolean insertMenuToDb(String nom, int idCategorie, String description, String jour, double prix) {
         // Connecting to database
         String url = "jdbc:mysql://localhost:3306/resto_univ";
@@ -214,7 +215,8 @@ public class database {
         }
         return false;
     }
-    public static boolean updateItem(int idPlat, String nomPlat, int idCategorie, String description, String jourPlat, double prixPlat){
+
+    public static boolean updateItem(int idPlat, String nomPlat, int idCategorie, String description, String jourPlat, double prixPlat) {
         // Connecting to database
         String url = "jdbc:mysql://localhost:3306/resto_univ";
         String usernameDB = "root";
@@ -244,6 +246,7 @@ public class database {
         }
         return false;
     }
+
     public static boolean deleteItem(int itemId) {
         // Connecting to database
         String url = "jdbc:mysql://localhost:3306/resto_univ";
@@ -309,23 +312,23 @@ public class database {
             Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB);
             String query;
             PreparedStatement preparedStatement;
-            if (idUser == 0){
+            if (idUser == 0) {
                 // Fetching data from a table
                 query = """
-                    SELECT *
-                    FROM Commande c
-                    JOIN User u ON c.idUser = u.idUser
-                    JOIN Menu m ON c.idMenu = m.idMenu\s
-                    """;
+                        SELECT *
+                        FROM Commande c
+                        JOIN User u ON c.idUser = u.idUser
+                        JOIN Menu m ON c.idMenu = m.idMenu\s
+                        """;
                 preparedStatement = connection.prepareStatement(query);
             } else {
                 // Fetching data from a table
                 query = """
-                    SELECT *
-                    FROM Commande c
-                    JOIN User u ON c.idUser = u.idUser
-                    JOIN Menu m ON c.idMenu = m.idMenu\s
-                    WHERE u.idUser=?""";
+                        SELECT *
+                        FROM Commande c
+                        JOIN User u ON c.idUser = u.idUser
+                        JOIN Menu m ON c.idMenu = m.idMenu\s
+                        WHERE u.idUser=?""";
                 preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, idUser);
             }
@@ -337,7 +340,7 @@ public class database {
                 int idMenu = resultSet.getInt("idMenu");
                 int quantite = resultSet.getInt("quantite");
                 String nomMenu = resultSet.getString("m.nom");
-                String etatLivraison = "En cours de preparation";
+                String etatLivraison = resultSet.getString("etat");
                 double prix = resultSet.getDouble("prix");
                 int numCommande = resultSet.getInt("numCommande");
                 commandeItems.add(new CommandeObject(idCommande, idMenu, nomMenu, prix, idUser, quantite, etatLivraison, numCommande));
@@ -360,8 +363,6 @@ public class database {
         }
         return commandeItems;
     }
-
-
 
 
     public static boolean modifierEtatCommande(int idCommande) {
