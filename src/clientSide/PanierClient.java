@@ -206,9 +206,12 @@ public class PanierClient extends JFrame {
                 int min = 10000;
                 int max = 999999;
                 int numCommande = random.nextInt((max - min) + 1) + min;
-                if (database.database.insertCommande(p.idMenu, this.idUser, p.quantite, p.etatLivraison, numCommande)) {
-                    inserted = true;
+                if (p.quantite != 0) {
+                    if (database.database.insertCommande(p.idMenu, this.idUser, p.quantite, p.etatLivraison, numCommande)) {
+                        inserted = true;
+                    }
                 }
+
             }
             if (inserted) {
                 setVisible(false);
