@@ -184,6 +184,9 @@ public class GestionDeLivraison extends JFrame {
                 // Delet the commande here
                 if (database.database.deleteCommande(idCommande)) {
                     System.out.println("Commande supprimeee");
+                    setVisible(false);
+                    new GestionDeLivraison();
+                    dispose();
                 }
             });
         }
