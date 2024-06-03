@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 import objects.*;
 import photos.ResizableImageLabel;
@@ -66,7 +67,7 @@ public class PanierClient extends JFrame {
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setBackground(Color.WHITE);
 
-        // Hna kan3amer array fiha elements dyal panier mn menu
+        // Je remplis le tableau de panier par les elements recus de menu
         for (MenuObject menu : menuItems) {
             boolean found = false;
             for (PanierObject p : paniers) {
@@ -198,22 +199,29 @@ public class PanierClient extends JFrame {
         buttonPanel.add(effacerButton);
 
         confirmerButton.addActionListener(evt -> {
-            setVisible(false);
             boolean inserted = false;
-            for (PanierObject p : paniers){
-                if (database.database.insertCommande(p.idMenu, this.idUser, p.quantite, p.etatLivraison)){
+            for (PanierObject p : paniers) {
+                // Generate an int number between 10000 and 99999
+                Random random = new Random();
+                int min = 10000;
+                int max = 999999;
+                int numCommande = random.nextInt((max - min) + 1) + min;
+                if (database.database.insertCommande(p.idMenu, this.idUser, p.quantite, p.etatLivraison, numCommande)) {
                     inserted = true;
                 }
             }
-            if (inserted){
-                new CommandeClient(totalAmount, this.idUser).setVisible(true);
+            if (inserted) {
+                setVisible(false);
+                new CommandeClient(totalAmount, this.idUser);
+                dispose();
             }
         });
 
         menuButton.addActionListener(evt -> {
             // this closes this interface and opens the menu interface
             this.setVisible(false);
-            new MenuClient(this.idUser).setVisible(true);
+            new MenuClient(this.idUser);
+            dispose();
         });
 
         effacerButton.addActionListener(evt -> {

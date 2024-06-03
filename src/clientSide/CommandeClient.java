@@ -28,7 +28,7 @@ public class CommandeClient extends JFrame {
         CommandeClient.totalAmount = totalAmount;
         System.out.println("Prix total: " + totalAmount);
         System.out.println("Size is: " + commande.size());
-        for(CommandeObject p : commande){
+        for (CommandeObject p : commande) {
             System.out.println(p.nomMenu);
         }
 
@@ -59,7 +59,7 @@ public class CommandeClient extends JFrame {
     private JLabel createTitleLabel() {
         JLabel titleLabel = new JLabel("Mes Commandes", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 0,0));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
         return titleLabel;
     }
 
@@ -68,21 +68,21 @@ public class CommandeClient extends JFrame {
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setBackground(Color.WHITE);
 
-        
+
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         headerPanel.setBackground(Color.WHITE);
         JLabel articlesLabel = new JLabel("Articles");
         articlesLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        articlesLabel.setBorder(BorderFactory.createEmptyBorder(0, 80,0, 0));
+        articlesLabel.setBorder(BorderFactory.createEmptyBorder(0, 80, 0, 0));
         JLabel etatLabel = new JLabel("Etat");
         etatLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        etatLabel.setBorder(BorderFactory.createEmptyBorder(0, 250, 0, 0)); 
+        etatLabel.setBorder(BorderFactory.createEmptyBorder(0, 250, 0, 0));
         headerPanel.add(articlesLabel);
-        headerPanel.add(Box.createRigidArea(new Dimension(35, 0))); 
+        headerPanel.add(Box.createRigidArea(new Dimension(35, 0)));
         headerPanel.add(etatLabel);
         listPanel.add(headerPanel);
 
-        
+
         listPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 
         for (CommandeObject commande : commande) {
@@ -90,7 +90,7 @@ public class CommandeClient extends JFrame {
             itemPanel.setBackground(Color.WHITE);
             itemPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 0));
 
-            JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEADING)); 
+            JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
             infoPanel.setBackground(Color.WHITE);
 
             JLabel quantityLabel = new JLabel(commande.quantite + "x ");
@@ -114,17 +114,17 @@ public class CommandeClient extends JFrame {
             JPanel labelsPanel = new JPanel(new GridLayout(2, 1));
             labelsPanel.add(itemNameLabel);
             labelsPanel.add(itemPriceLabel);
-            infoPanel.add(labelsPanel); 
+            infoPanel.add(labelsPanel);
 
-            JPanel LivraisonStatusPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING)); 
+            JPanel LivraisonStatusPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
             LivraisonStatusPanel.setBackground(Color.WHITE);
             LivraisonStatusPanel.setPreferredSize(new Dimension(200, 20));
 
             JLabel deliveryStatusLabel = new JLabel("Livré ou non Livré");
 
             deliveryStatusLabel.setFont(new Font("Arial", Font.BOLD, 14));
-            LivraisonStatusPanel.add(deliveryStatusLabel); 
-            infoPanel.add(Box.createRigidArea(new Dimension(120,0)));
+            LivraisonStatusPanel.add(deliveryStatusLabel);
+            infoPanel.add(Box.createRigidArea(new Dimension(120, 0)));
             infoPanel.add(LivraisonStatusPanel);
 
             itemPanel.add(infoPanel, BorderLayout.CENTER);
@@ -137,7 +137,7 @@ public class CommandeClient extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.getViewport().setBackground(Color.WHITE);
 
-       
+
         Border border = BorderFactory.createLineBorder(new Color(219, 219, 219), 40);
         scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
@@ -168,12 +168,14 @@ public class CommandeClient extends JFrame {
 
         OuiButton.addActionListener(evt -> {
             this.setVisible(false);
-            new Remerciement(this.idUser).setVisible(true);
+            new Remerciement(this.idUser);
+            dispose();
         });
 
         NonButton.addActionListener(evt -> {
             this.setVisible(false);
-            new Reclamation(this.idUser).setVisible(true);
+            new Reclamation(this.idUser);
+            dispose();
         });
 
         return buttonPanel;

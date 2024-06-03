@@ -60,12 +60,11 @@ public class Reclamation extends JFrame {
         menuButton.addActionListener(evt -> {
             setVisible(false);
             new MenuClient(this.idUser);
+            dispose();
         });
 
         quitterButton.addActionListener(evt -> System.exit(0));
-
         setContentPane(panel);
-
 
         setVisible(true);
     }
