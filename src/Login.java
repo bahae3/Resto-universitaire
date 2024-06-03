@@ -39,8 +39,8 @@ public class Login extends JFrame {
         resto.setForeground(new Color(100, 100, 255));
 
         // Adding an image
-        ResizableImageLabel imageLabel = new ResizableImageLabel("src/resto.png", 190, 190);
-        imageLabel.setBounds(210, 290, 190, 190);
+        ResizableImageLabel imageLabel = new ResizableImageLabel("src/restopic.jpg", 450, 300);
+        imageLabel.setBounds(120, 275, 450, 300);
         this.panel.add(imageLabel);
 
         // Partie a droite
@@ -108,9 +108,11 @@ public class Login extends JFrame {
                     System.out.println("Admin logged in.");
                     setVisible(false);
                     new GestionMenu();
+                    dispose();
                 } else {
                     setVisible(false);
                     new MenuClient(database.getUserId(emailUser, mdpUser));
+                    dispose();
                 }
             } else {
                 loginError.setText("Email ou mot de passe incorrect.");
@@ -123,6 +125,7 @@ public class Login extends JFrame {
             // interface dyal email ghatmshi w ghatla3 dyal sign up
             setVisible(false);
             new Signup().setVisible(true);
+            dispose();
         });
 
         this.setVisible(true);

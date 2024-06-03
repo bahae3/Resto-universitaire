@@ -83,6 +83,7 @@ public class GestionMenu extends JFrame {
                 setVisible(false);
                 // Modifier plat avec son id
                 new ModifierPlat(m, m.idMenu);
+                dispose();
             });
 
             JButton deleteButton = createButton("Supprimer", new Color(255, 0, 0));
@@ -92,6 +93,7 @@ public class GestionMenu extends JFrame {
                     System.out.println("Item deleted");
                     setVisible(false);
                     new GestionMenu();
+                    dispose();
                 }
             });
 
@@ -119,12 +121,14 @@ public class GestionMenu extends JFrame {
         addButton.addActionListener(evt -> {
             setVisible(false);
             new AjouterPlat();
+            dispose();
         });
 
         JButton deliveryButton = createButton("Livraisons", new Color(60, 160, 240));
         deliveryButton.addActionListener(evt -> {
             setVisible(false);
-            new GestionLivraisons();
+            new GestionDeLivraison();
+            dispose();
         });
 
         Dimension buttonSize = new Dimension(160, 40);

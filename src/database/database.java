@@ -389,7 +389,7 @@ public class database {
         return false;
     }
 
-    public static boolean deletCommande(int idCommande){
+    public static boolean deleteCommande(int idCommande) {
         // Connecting to database
         String url = "jdbc:mysql://localhost:3306/resto_univ";
         String usernameDB = "root";

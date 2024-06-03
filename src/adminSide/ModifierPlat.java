@@ -1,12 +1,15 @@
 package adminSide;
 
+import objects.MenuObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
+import static database.database.updateItem;
 
-import static database.database.insertMenuToDb;
-
-public class AjouterPlat extends JFrame {
+public class ModifierPlat extends JFrame {
+    MenuObject menu;
+    int idPlat;
     JPanel mainPanel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
@@ -15,9 +18,10 @@ public class AjouterPlat extends JFrame {
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     };
-
-    public AjouterPlat() {
-        setTitle("Ajout d'un plat"); // Définit le titre de la fenêtre
+    public ModifierPlat(MenuObject menu, int idPlat) {
+        this.menu = menu;
+        this.idPlat = idPlat;
+        setTitle("Modification d'un plat"); // Définit le titre de la fenêtre
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Définit l'action de fermeture
         setBounds(200, 60, 1000, 600); // Définit la taille de la fenêtre
         setLocationRelativeTo(null); // Centre la fenêtre à l'écran
@@ -26,7 +30,7 @@ public class AjouterPlat extends JFrame {
         // Crée le panneau du titre
         JPanel titlePanel = new JPanel();
         titlePanel.setOpaque(false); // Rend le fond transparent
-        JLabel titleLabel = new JLabel("Ajout d'un plat");
+        JLabel titleLabel = new JLabel("Modification d'un plat");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Définit la police du titre
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER); // Centre le titre
         titlePanel.add(titleLabel);
@@ -52,6 +56,7 @@ public class AjouterPlat extends JFrame {
         formPanel.add(nameLabel, gbc);
 
         JTextField nameField = new JTextField(15);
+        nameField.setText(menu.nom);
         nameField.setFont(textFieldFont);
         gbc.gridx = 1;
         formPanel.add(nameField, gbc);
@@ -63,7 +68,7 @@ public class AjouterPlat extends JFrame {
         gbc.gridx = 0;
         formPanel.add(categoryLabel, gbc);
 
-        JComboBox<String> categoryComboBox = new JComboBox<>(new String[]{"Boissons", "Entrées", "Plats principaux", "Desserts", "Menus spéciaux"});
+        JComboBox<String> categoryComboBox = new JComboBox<>(new String[] {"Boissons", "Entrées", "Plats principaux", "Desserts", "Menus spéciaux"});
         categoryComboBox.setFont(textFieldFont);
         categoryComboBox.setPreferredSize(nameField.getPreferredSize()); // Assure la même taille que les autres champs
         categoryComboBox.setBackground(Color.WHITE); // Définit la couleur de fond en blanc
@@ -78,6 +83,7 @@ public class AjouterPlat extends JFrame {
         formPanel.add(descriptionLabel, gbc);
 
         JTextField descriptionField = new JTextField(15);
+        descriptionField.setText(menu.description);
         descriptionField.setFont(textFieldFont);
         gbc.gridx = 1;
         formPanel.add(descriptionField, gbc);
@@ -89,7 +95,7 @@ public class AjouterPlat extends JFrame {
         gbc.gridx = 0;
         formPanel.add(dayLabel, gbc);
 
-        JComboBox<String> dayComboBox = new JComboBox<>(new String[]{"Tous les jours", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"});
+        JComboBox<String> dayComboBox = new JComboBox<>(new String[] {"Tous les jours", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"});
         dayComboBox.setFont(textFieldFont);
         dayComboBox.setPreferredSize(nameField.getPreferredSize()); // Assure la même taille que les autres champs
         dayComboBox.setBackground(Color.WHITE); // Définit la couleur de fond en blanc
@@ -104,6 +110,7 @@ public class AjouterPlat extends JFrame {
         formPanel.add(priceLabel, gbc);
 
         JTextField priceField = new JTextField(15);
+        priceField.setText(String.valueOf(menu.prix));
         priceField.setFont(textFieldFont);
         gbc.gridx = 1;
         formPanel.add(priceField, gbc);
@@ -114,7 +121,7 @@ public class AjouterPlat extends JFrame {
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Centre les boutons
         Dimension buttonSize = new Dimension(160, 40); // Dimensions for the buttons
 
-        JButton addButton = new JButton("Ajouter au menu");
+        JButton addButton = new JButton("Modifier le plat");
         addButton.setFont(new Font("Arial", Font.PLAIN, 16));
         addButton.setBackground(new Color(60, 160, 240));
         addButton.setForeground(Color.WHITE);
@@ -138,10 +145,10 @@ public class AjouterPlat extends JFrame {
 
             assert jourPlat != null;
             boolean insertion;
-            if (jourPlat.equals("Tous les jours")) {
-                insertion = insertMenuToDb(nomPlat, idCategorie, descriptionPlat, null, prixPlat);
+            if (jourPlat.equals("Tous les jours")){
+                insertion = updateItem(idPlat, nomPlat, idCategorie, descriptionPlat, null, prixPlat);
             } else {
-                insertion = insertMenuToDb(nomPlat, idCategorie, descriptionPlat, jourPlat, prixPlat);
+                insertion = updateItem(idPlat, nomPlat, idCategorie, descriptionPlat, jourPlat, prixPlat);
             }
 
             System.out.println("Nom du plat: " + nomPlat);
@@ -150,10 +157,11 @@ public class AjouterPlat extends JFrame {
             System.out.println("Jour: " + jourPlat);
             System.out.println("Prix: " + prixPlat);
 
-            if (insertion) {
+            if (insertion){
                 System.out.println("Plat ajoute");
                 setVisible(false);
                 new GestionMenu();
+                dispose();
             }
         });
         buttonsPanel.add(addButton);
@@ -167,6 +175,7 @@ public class AjouterPlat extends JFrame {
         returnButton.addActionListener(evt -> {
             setVisible(false);
             new GestionMenu();
+            dispose();
         });
         buttonsPanel.add(returnButton);
 
@@ -178,4 +187,8 @@ public class AjouterPlat extends JFrame {
         add(mainPanel);
         setVisible(true); // Rendre la fenêtre visible
     }
+
+//    public static void main(String[] args) {
+//        new ModifierPlat(); // Lance l'application
+//    }
 }
