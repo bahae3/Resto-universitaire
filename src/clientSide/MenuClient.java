@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class MenuClient extends JFrame {
     int idUser;
-    ArrayList<MenuObject> menu = database.selectMenu(1);
+    ArrayList<MenuObject> menu = database.selectMenu(0);
     ArrayList<MenuObject> panier = new ArrayList<>();
 
     JPanel panel = new JPanel() {

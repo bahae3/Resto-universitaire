@@ -149,7 +149,7 @@ public class GestionMenu extends JFrame {
         return button;
     }
 
-    public static void main(String[] args) {
-        new GestionMenu();
-    }
+//    public static void main(String[] args) {
+//        new GestionMenu();
+//    }
 }
