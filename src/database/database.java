@@ -166,7 +166,7 @@ public class database {
                 String nom = resultSet.getString("nom");
                 String description = resultSet.getString("description");
                 String jourMenu = resultSet.getString("jourMenu");
-                String etatLivraison = "En cours de preparation";
+                String etatLivraison = "Non Livré";
                 double prix = resultSet.getDouble("prix");
                 menuItems.add(new MenuObject(id, 0, nom, nom, description, jourMenu, etatLivraison, prix));
             }
@@ -381,6 +381,29 @@ public class database {
 
             // Check if insertion was successful
             if (rowsInserted > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
+    }
+
+    public static boolean deletCommande(int idCommande){
+        // Connecting to database
+        String url = "jdbc:mysql://localhost:3306/resto_univ";
+        String usernameDB = "root";
+        String passwordDB = "";
+
+        try (Connection connection = DriverManager.getConnection(url, usernameDB, passwordDB)) {
+            // Deleting the specified commande
+            String users = "DELETE FROM commande WHERE idCommande=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(users);
+            preparedStatement.setInt(1, idCommande);
+            int rowsDeleted = preparedStatement.executeUpdate();
+
+            // Check if insertion was successful
+            if (rowsDeleted > 0) {
                 return true;
             }
         } catch (SQLException e) {
