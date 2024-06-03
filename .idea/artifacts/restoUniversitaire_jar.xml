@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="restoUniversitaire:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/restoUniversitaire_jar</output-path>
+    <root id="archive" name="restoUniversitaire.jar">
+      <element id="module-output" name="restoUniversitaire" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/mysql-connector-java-8.0.29.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
