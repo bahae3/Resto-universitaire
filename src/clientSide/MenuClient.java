@@ -1,6 +1,5 @@
 package clientSide;
 
-import adminSide.GestionMenu;
 import database.database;
 import objects.MenuObject;
 import photos.ResizableImageLabel;
@@ -19,7 +18,7 @@ public class MenuClient extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(new Color(237, 210, 133));
+            g.setColor(new Color(219, 219, 219));
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     };
@@ -174,13 +173,12 @@ public class MenuClient extends JFrame {
             minusButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             buttonPanel.add(minusButton, BorderLayout.CENTER);
             minusButton.addActionListener(evt -> {
-                if (m.quantite > 0){
+                if (m.quantite > 0) {
                     m.quantite--;
                     quantityLabel.setText(m.quantite + "x");
                     panier.remove(m);
                 }
             });
-
 
 
             itemPanel.add(buttonPanel);
@@ -194,7 +192,7 @@ public class MenuClient extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.getViewport().setBackground(Color.WHITE);
 
-        Border border = BorderFactory.createLineBorder(new Color(237, 210, 133), 40);
+        Border border = BorderFactory.createLineBorder(new Color(219, 219, 219), 40);
         scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         return scrollPane;
@@ -202,7 +200,7 @@ public class MenuClient extends JFrame {
 
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 60, 40));
-        buttonPanel.setBackground(new Color(237, 210, 133));
+        buttonPanel.setBackground(new Color(219, 219, 219));
 
         JButton panierButton = createButton("Panier");
 
@@ -214,6 +212,7 @@ public class MenuClient extends JFrame {
         panierButton.addActionListener(evt -> {
             setVisible(false);
             new PanierClient(panier, this.idUser);
+            dispose();
         });
 
         return buttonPanel;
