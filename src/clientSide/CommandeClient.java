@@ -120,7 +120,7 @@ public class CommandeClient extends JFrame {
             LivraisonStatusPanel.setBackground(Color.WHITE);
             LivraisonStatusPanel.setPreferredSize(new Dimension(200, 20));
 
-            JLabel deliveryStatusLabel = new JLabel("Livré ou non Livré");
+            JLabel deliveryStatusLabel = new JLabel(commande.etatLivraison);
 
             deliveryStatusLabel.setFont(new Font("Arial", Font.BOLD, 14));
             LivraisonStatusPanel.add(deliveryStatusLabel);
@@ -145,7 +145,7 @@ public class CommandeClient extends JFrame {
     }
 
     private JLabel createConfirmationLabel() {
-        JLabel confirmationLabel = new JLabel("Avez-vous reçu votre commande ?", SwingConstants.CENTER);
+        JLabel confirmationLabel = new JLabel("Avez-vous reçu votre/vos commande(s) ?", SwingConstants.CENTER);
         confirmationLabel.setFont(new Font("Arial", Font.BOLD, 16));
         confirmationLabel.setBackground(new Color(219, 219, 219));
         confirmationLabel.setOpaque(true);
@@ -190,7 +190,7 @@ public class CommandeClient extends JFrame {
     }
 
 
-    public static void main(String[] args) {
-        new CommandeClient(100, 1);
-    }
+//    public static void main(String[] args) {
+//        new CommandeClient(100, 1);
+//    }
 }
