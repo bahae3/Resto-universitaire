@@ -1,16 +1,10 @@
-package clientSide;
-
-import objects.CommandeObject;
-import photos.ResizableImageLabel;
+package monpanier;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class CommandeClientUpdatedInterface extends JFrame {
-    int idUser;
-    ArrayList<CommandeObject> commande;
-    static double totalAmount;
+public class CommandeClientInterface extends JFrame {
     JPanel panel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
@@ -20,17 +14,8 @@ public class CommandeClientUpdatedInterface extends JFrame {
         }
     };
 
-    public CommandeClientUpdatedInterface(double totalAmount, int idUser) {
-        this.idUser = idUser;
-        this.commande = database.database.selectCommande(this.idUser);
-
-        CommandeClient.totalAmount = totalAmount;
-        System.out.println("Prix total: " + totalAmount);
-        System.out.println("Size is: " + commande.size());
-        for (CommandeObject p : commande) {
-            System.out.println(p.nomMenu);
-        }
-        setTitle("Resto universitaire - Mes Commandes");
+    public CommandeClientInterface() {
+        setTitle("esto universitaire - Mes Commandes");
         setSize(700, 630);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(200, 60);
@@ -55,7 +40,7 @@ public class CommandeClientUpdatedInterface extends JFrame {
     }
 
     private JLabel createTitleLabel() {
-        JLabel titleLabel = new JLabel("Mes Commandes", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Gestion de commandes - livraisons", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
         return titleLabel;
@@ -73,7 +58,7 @@ public class CommandeClientUpdatedInterface extends JFrame {
         etatLabel.setFont(new Font("Arial", Font.BOLD, 18));
         listPanel.add(etatLabel);
 
-        for (CommandeObject commande:commande) {
+        for (int i = 0; i < 3; i++) {
             JPanel articlePanel = createArticlePanel();
             JPanel etatPanel = createEtatPanel();
 
@@ -112,14 +97,16 @@ public class CommandeClientUpdatedInterface extends JFrame {
         gbc.gridx = 0;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        JLabel quantityLabel = new JLabel(commande.quantite + "x");
+        JLabel quantityLabel = new JLabel(1 + "x");
         articlePanel.add(quantityLabel, gbc);
 
-        ResizableImageLabel imageLabel=new ResizableImageLabel("src/photos/" + commande.nomMenu + ".jpg", 80, 80);
+        JPanel squarePanel = new JPanel();
+        squarePanel.setPreferredSize(new Dimension(80, 80));
+        squarePanel.setBackground(Color.LIGHT_GRAY);
         gbc.gridx = 1;
-        articlePanel.add(imageLabel, gbc);
+        articlePanel.add(squarePanel, gbc);
 
-        JLabel itemNameLabel = new JLabel(commande.nomMenu);
+        JLabel itemNameLabel = new JLabel("Nom Plat");
         itemNameLabel.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
         itemNameLabel.setBackground(Color.WHITE);
         itemNameLabel.setOpaque(true);
@@ -127,7 +114,7 @@ public class CommandeClientUpdatedInterface extends JFrame {
         gbc.gridx = 2;
         articlePanel.add(itemNameLabel, gbc);
 
-        JLabel itemPriceLabel = new JLabel(String.valueOf(commande.prix));
+        JLabel itemPriceLabel = new JLabel("$prix");
         itemPriceLabel.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
         itemPriceLabel.setBackground(Color.WHITE);
         itemPriceLabel.setOpaque(true);
@@ -146,7 +133,7 @@ public class CommandeClientUpdatedInterface extends JFrame {
         gbc.gridx = 0;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        JLabel deliveryStatusLabel = new JLabel(commande.etatLivraison);
+        JLabel deliveryStatusLabel = new JLabel("Livré ou non Livré");
         deliveryStatusLabel.setFont(new Font("Arial", Font.BOLD, 14));
         etatPanel.add(deliveryStatusLabel, gbc);
 
@@ -167,17 +154,6 @@ public class CommandeClientUpdatedInterface extends JFrame {
         buttonPanel.add(ouiButton);
         buttonPanel.add(nonButton);
 
-        ouiButton.addActionListener(evt -> {
-            this.setVisible(false);
-            new Remerciement(this.idUser);
-            dispose();
-        });
-        
-        nonButton.addActionListener(evt -> {
-            this.setVisible(false);
-            new Reclamation(this.idUser);
-            dispose();
-        });
         return buttonPanel;
     }
 
@@ -189,7 +165,7 @@ public class CommandeClientUpdatedInterface extends JFrame {
         return button;
     }
 
- // public static void main(String[] args) {
-//      new CommandeClientUpdatedInterface(100, 1);
-//  }
+    public static void main(String[] args) {
+        new CommandeClientInterface();
+    }
 }
