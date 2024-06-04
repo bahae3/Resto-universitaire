@@ -102,9 +102,9 @@ public class Signup extends JFrame {
                 System.out.println("Data bien stockees.");
                 setVisible(false);
                 new Login().setVisible(true);
+                dispose();
             } else {
-                // hadi makatkhdmch ma3rftch 3lash
-                errorMessage.setText("Erreur lors du stockage de donnees. Veuillez reessayer.");
+                errorMessage.setText("Erreur. Peut-être cet email est déjà utilisé. Veuillez réessayer.");
             }
 
         });
@@ -113,6 +113,7 @@ public class Signup extends JFrame {
             // interface dyal sign up ghatmshi w ghatla3 dyal login
             setVisible(false);
             new Login().setVisible(true);
+            dispose();
         });
 
         this.setVisible(true);
