@@ -8,7 +8,7 @@ import photos.ResizableImageLabel;
 
 public class Login extends JFrame {
     // Hadi dima diroha mnin tbghiw tssaybo chi frame jdida
-    // Hadi hia li kat3ti dak couleur sfer
+    // Hadi hia li kat3ti dak couleur gris
     JPanel panel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
