@@ -215,7 +215,7 @@ public class PanierClient extends JFrame {
             }
             if (inserted) {
                 setVisible(false);
-                new CommandeClient(totalAmount, this.idUser);
+                new CommandeClient(this.idUser);
                 dispose();
             }
         });
