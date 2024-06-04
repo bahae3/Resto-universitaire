@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class CommandeClient extends JFrame {
+public class CommandeClientUpdatedInterface extends JFrame {
     int idUser;
     ArrayList<CommandeObject> commande;
     static double totalAmount;
@@ -20,7 +20,7 @@ public class CommandeClient extends JFrame {
         }
     };
 
-    public CommandeClient(double totalAmount, int idUser) {
+    public CommandeClientUpdatedInterface(double totalAmount, int idUser) {
         this.idUser = idUser;
         this.commande = database.database.selectCommande(this.idUser);
 
@@ -190,6 +190,6 @@ public class CommandeClient extends JFrame {
     }
 
  // public static void main(String[] args) {
-//      new CommandeClient(100, 1);
+//      new CommandeClientUpdatedInterface(100, 1);
 //  }
 }
