@@ -176,7 +176,7 @@ public class CommandeClient extends JFrame {
         return button;
     }
 
-    public static void main(String[] args) {
-        new CommandeClient(1);
-    }
+//    public static void main(String[] args) {
+//        new CommandeClient(1);
+//    }
 }
