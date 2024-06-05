@@ -32,12 +32,12 @@ public class MenuClient extends JFrame {
         panel.setLayout(new BorderLayout());
 
         JLabel titleLabel = createTitleLabel();
-        JPanel navBarPanel = createNavBar();
+//        JPanel navBarPanel = createNavBar();
         JScrollPane scrollPane = createScrollPane();
         JPanel buttonPanel = createButtonPanel();
 
         JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(navBarPanel, BorderLayout.NORTH);
+//        centerPanel.add(navBarPanel, BorderLayout.NORTH);
         centerPanel.add(scrollPane, BorderLayout.CENTER);
 
         panel.add(titleLabel, BorderLayout.NORTH);
@@ -55,62 +55,62 @@ public class MenuClient extends JFrame {
         return titleLabel;
     }
 
-    private JPanel createNavBar() {
-        JPanel navBarPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
-
-
-        JButton button1 = new JButton("Plat du jour");
-        button1.setPreferredSize(new Dimension(150, 40));
-        button1.setBackground(new Color(237, 210, 133));
-        navBarPanel.add(button1);
-
-        button1.addActionListener(evt -> {
+//    private JPanel createNavBar() {
+//        JPanel navBarPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+//
+//
+//        JButton button1 = new JButton("Plat du jour");
+//        button1.setPreferredSize(new Dimension(150, 40));
+//        button1.setBackground(new Color(237, 210, 133));
+//        navBarPanel.add(button1);
+//
+//        button1.addActionListener(evt -> {
+////            menu = database.selectMenu(2);
+//        });
+//
+//        JButton button2 = new JButton("Entrées");
+//        button2.setPreferredSize(new Dimension(150, 40));
+//        button2.setBackground(new Color(237, 210, 133));
+//        navBarPanel.add(button2);
+//        button2.addActionListener(evt -> {
 //            menu = database.selectMenu(2);
-        });
-
-        JButton button2 = new JButton("Entrées");
-        button2.setPreferredSize(new Dimension(150, 40));
-        button2.setBackground(new Color(237, 210, 133));
-        navBarPanel.add(button2);
-        button2.addActionListener(evt -> {
-            menu = database.selectMenu(2);
-        });
-
-        JButton button3 = new JButton("Boissons");
-        button3.setPreferredSize(new Dimension(150, 40));
-        button3.setBackground(new Color(237, 210, 133));
-        navBarPanel.add(button3);
-        button3.addActionListener(evt -> {
-            menu = database.selectMenu(1);
-        });
-
-        JButton button4 = new JButton("Desserts");
-        button4.setPreferredSize(new Dimension(150, 40));
-        button4.setBackground(new Color(237, 210, 133));
-        navBarPanel.add(button4);
-        button4.addActionListener(evt -> {
-            menu = database.selectMenu(4);
-        });
-
-        JButton button5 = new JButton("Plats Principaux");
-        button5.setPreferredSize(new Dimension(150, 40));
-        button5.setBackground(new Color(237, 210, 133));
-        navBarPanel.add(button5);
-        button5.addActionListener(evt -> {
-            menu = database.selectMenu(3);
-        });
-
-        JButton button6 = new JButton("Menus spéciaux");
-        button6.setPreferredSize(new Dimension(150, 40));
-        button6.setBackground(new Color(237, 210, 133));
-        navBarPanel.add(button6);
-        button6.addActionListener(evt -> {
-            createScrollPane();
-            menu = database.selectMenu(5);
-        });
-
-        return navBarPanel;
-    }
+//        });
+//
+//        JButton button3 = new JButton("Boissons");
+//        button3.setPreferredSize(new Dimension(150, 40));
+//        button3.setBackground(new Color(237, 210, 133));
+//        navBarPanel.add(button3);
+//        button3.addActionListener(evt -> {
+//            menu = database.selectMenu(1);
+//        });
+//
+//        JButton button4 = new JButton("Desserts");
+//        button4.setPreferredSize(new Dimension(150, 40));
+//        button4.setBackground(new Color(237, 210, 133));
+//        navBarPanel.add(button4);
+//        button4.addActionListener(evt -> {
+//            menu = database.selectMenu(4);
+//        });
+//
+//        JButton button5 = new JButton("Plats Principaux");
+//        button5.setPreferredSize(new Dimension(150, 40));
+//        button5.setBackground(new Color(237, 210, 133));
+//        navBarPanel.add(button5);
+//        button5.addActionListener(evt -> {
+//            menu = database.selectMenu(3);
+//        });
+//
+//        JButton button6 = new JButton("Menus spéciaux");
+//        button6.setPreferredSize(new Dimension(150, 40));
+//        button6.setBackground(new Color(237, 210, 133));
+//        navBarPanel.add(button6);
+//        button6.addActionListener(evt -> {
+//            createScrollPane();
+//            menu = database.selectMenu(5);
+//        });
+//
+//        return navBarPanel;
+//    }
 
     private JScrollPane createScrollPane() {
         JPanel listPanel = new JPanel();
@@ -226,8 +226,8 @@ public class MenuClient extends JFrame {
         return button;
     }
 
-//    public static void main(String[] args) {
-//        new MenuClient(1);
-//    }
+    public static void main(String[] args) {
+        new MenuClient(2);
+    }
 
 }
