@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import database.*;
+import photos.ResizableImageLabel;
 
 
 public class Signup extends JFrame {
@@ -21,6 +22,10 @@ public class Signup extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.panel.setLayout(null);
+
+        ResizableImageLabel imageLabel = new ResizableImageLabel("src/logo.jpg", 330, 330);
+        imageLabel.setBounds(50, 140, 330, 330);
+        this.panel.add(imageLabel);
 
         JLabel prenom = new JLabel("Prénom:");
         prenom.setBounds(430, 90, 100, 25);
@@ -118,5 +123,9 @@ public class Signup extends JFrame {
 
         this.setVisible(true);
 
+    }
+
+    public static void main(String[] args) {
+        new Signup();
     }
 }

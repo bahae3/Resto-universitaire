@@ -39,8 +39,8 @@ public class Login extends JFrame {
         resto.setForeground(new Color(100, 100, 255));
 
         // Adding an image
-        ResizableImageLabel imageLabel = new ResizableImageLabel("src/restoUnivEats.png", 210, 210);
-        imageLabel.setBounds(210, 310, 210, 210);
+        ResizableImageLabel imageLabel = new ResizableImageLabel("src/logo.jpg", 285, 285);
+        imageLabel.setBounds(180, 250, 285, 285);
         this.panel.add(imageLabel);
 
         // Partie a droite
