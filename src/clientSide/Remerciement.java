@@ -17,7 +17,7 @@ public class Remerciement extends JFrame {
     public Remerciement(int idUser) {
         this.idUser = idUser;
         // style de ma fenetre
-        setTitle("Resto universitaire - Bon Appetit");
+        setTitle("UnivEats - Bon Appetit");
         this.setBounds(200, 60, 1200, 717);
         Container contentPane = getContentPane();
         contentPane.setBackground(new Color(219, 219, 219));

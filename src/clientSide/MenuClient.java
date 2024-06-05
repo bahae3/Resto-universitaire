@@ -25,7 +25,7 @@ public class MenuClient extends JFrame {
 
     public MenuClient(int idUser) {
         this.idUser = idUser;
-        this.setTitle("Resto universitaire - Menu");
+        this.setTitle("UnivEats - Menu");
         this.setBounds(200, 60, 1200, 717);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

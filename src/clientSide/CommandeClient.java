@@ -24,7 +24,7 @@ public class CommandeClient extends JFrame {
         this.idUser = idUser;
         this.commande = database.database.selectCommande(this.idUser);
 
-        setTitle("Resto universitaire - Mes Commandes");
+        setTitle("UnivEats - Mes Commandes");
         setSize(1200, 717);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(200, 60);
@@ -161,6 +161,18 @@ public class CommandeClient extends JFrame {
         Dimension buttonSize = new Dimension(160, 40);
         ouiButton.setPreferredSize(buttonSize);
         nonButton.setPreferredSize(buttonSize);
+
+        ouiButton.addActionListener(evt -> {
+            setVisible(false);
+            new Remerciement(this.idUser);
+            dispose();
+        });
+
+        nonButton.addActionListener(evt -> {
+            setVisible(false);
+            new Reclamation(this.idUser);
+            dispose();
+        });
 
         buttonPanel.add(ouiButton);
         buttonPanel.add(nonButton);

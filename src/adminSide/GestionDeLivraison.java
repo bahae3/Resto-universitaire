@@ -201,7 +201,7 @@ public class GestionDeLivraison extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 60, 40));
         buttonPanel.setBackground(new Color(219, 219, 219));
 
-        JButton returnToMenuButton = createButton();
+        JButton returnToMenuButton = createButton("Retour au menu");
 
         Dimension buttonSize = new Dimension(160, 40);
         returnToMenuButton.setPreferredSize(buttonSize);
@@ -212,20 +212,29 @@ public class GestionDeLivraison extends JFrame {
             dispose();
         });
 
+        JButton refreshButton = createButton("Refresh");
+        refreshButton.setPreferredSize(buttonSize);
+        refreshButton.addActionListener(evt -> {
+            setVisible(false);
+            new GestionDeLivraison();
+            dispose();
+        });
+
+        buttonPanel.add(refreshButton);
         buttonPanel.add(returnToMenuButton);
 
         return buttonPanel;
     }
 
-    private JButton createButton() {
-        JButton button = new JButton("Retour au menu");
+    private JButton createButton(String text) {
+        JButton button = new JButton(text);
         button.setBackground(new Color(60, 160, 240));
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Arial", Font.BOLD, 16));
         return button;
     }
 
-//    public static void main(String[] args) {
-//        new GestionDeLivraison();
-//    }
+    public static void main(String[] args) {
+        new GestionDeLivraison();
+    }
 }

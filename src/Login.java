@@ -19,28 +19,28 @@ public class Login extends JFrame {
     };
 
     public Login() {
-        this.setTitle("Resto universitaire - Se connecter");
+        this.setTitle("UnivEats - Se connecter");
         this.setBounds(200, 60, 1200, 717);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.panel.setLayout(null);
 
         // Partie a gauche
-        JLabel bienvenue = new JLabel("Bienvenue . . .");
-        bienvenue.setBounds(120, 130, 400, 40);
+        JLabel bienvenue = new JLabel("UnivEats");
+        bienvenue.setBounds(180, 130, 400, 40);
         Font logoFontBvn = new Font("Lucida Handwriting", Font.BOLD, 42);
         bienvenue.setFont(logoFontBvn);
         bienvenue.setForeground(new Color(100, 100, 255));
 
-        JLabel resto = new JLabel("Resto universitaire");
-        resto.setBounds(120, 185, 400, 40);
+        JLabel resto = new JLabel("Bienvenue . . .");
+        resto.setBounds(180, 185, 400, 40);
         Font logoFontResto = new Font("Segoe Script", Font.PLAIN, 38);
         resto.setFont(logoFontResto);
         resto.setForeground(new Color(100, 100, 255));
 
         // Adding an image
-        ResizableImageLabel imageLabel = new ResizableImageLabel("src/restopic.jpg", 450, 300);
-        imageLabel.setBounds(120, 275, 450, 300);
+        ResizableImageLabel imageLabel = new ResizableImageLabel("src/restoUnivEats.png", 210, 210);
+        imageLabel.setBounds(210, 310, 210, 210);
         this.panel.add(imageLabel);
 
         // Partie a droite

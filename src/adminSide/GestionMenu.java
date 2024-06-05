@@ -89,7 +89,7 @@ public class GestionMenu extends JFrame {
             JButton deleteButton = createButton("Supprimer", new Color(255, 0, 0));
             infoPanel.add(deleteButton);
             deleteButton.addActionListener(evt -> {
-                if (database.deleteItem(m.idMenu)){
+                if (database.deleteItem(m.idMenu)) {
                     System.out.println("Item deleted");
                     setVisible(false);
                     new GestionMenu();

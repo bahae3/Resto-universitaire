@@ -17,7 +17,7 @@ public class Reclamation extends JFrame {
     public Reclamation(int idUser) {
         this.idUser = idUser;
         //style de ma fenetre
-        setTitle("Resto universitaire - Reclamation");
+        setTitle("UnivEats - Reclamation");
         this.setBounds(200, 60, 1200, 717);
         Container contentPane = getContentPane();
         contentPane.setBackground(new Color(219, 219, 219));

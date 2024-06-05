@@ -29,7 +29,7 @@ public class PanierClient extends JFrame {
         this.idUser = idUser;
         PanierClient.menuItems = menuItems;
         totalAmount = 0;
-        setTitle("Resto universitaire - Mon panier");
+        setTitle("UnivEats - Mon panier");
         setSize(1200, 717);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(200, 60);

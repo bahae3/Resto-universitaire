@@ -14,7 +14,7 @@ public class Signup extends JFrame {
     };
 
     public Signup() {
-        this.setTitle("Resto universitaire - S'inscrire");
+        this.setTitle("UnivEats - S'inscrire");
         this.setBounds(200, 60, 1200, 717);
         Container contentPane = getContentPane();
         contentPane.setBackground(new Color(219, 219, 219));
