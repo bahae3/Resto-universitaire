@@ -174,6 +174,15 @@ public class CommandeClient extends JFrame {
             dispose();
         });
 
+        JButton refreshButton = createButton("Refresh");
+        refreshButton.setPreferredSize(buttonSize);
+        refreshButton.addActionListener(evt -> {
+            setVisible(false);
+            new CommandeClient(this.idUser);
+            dispose();
+        });
+
+        buttonPanel.add(refreshButton);
         buttonPanel.add(ouiButton);
         buttonPanel.add(nonButton);
 
